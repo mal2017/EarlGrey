@@ -162,6 +162,7 @@ RUN echo "PS1='(dfam-tetools \$(pwd))\\\$ '" >> /etc/bash.bashrc
 ENV LANG=C
 ENV PYTHONIOENCODING=utf8
 
+ARG BREAKER=unknown
 RUN cd /opt/ \
         && git clone https://github.com/mal2017/EarlGrey \
         && cd EarlGrey \

@@ -1,6 +1,6 @@
 ![earlGreyIcon](https://user-images.githubusercontent.com/46785187/136248346-21e980ee-1154-48c2-9398-70938bbe2404.png)
 
-[![DOI](https://zenodo.org/badge/412126708.svg)](https://zenodo.org/badge/latestdoi/412126708) ![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2FTobyBaril%2FEarlGrey%2F) 
+[![DOI](https://zenodo.org/badge/412126708.svg)](https://zenodo.org/badge/latestdoi/412126708) ![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2FTobyBaril%2FEarlGrey%2F)
 
 # Earl Grey
 
@@ -36,7 +36,7 @@ earlGrey -g myzusPersicae.fasta -s myzusPersicae -r arthropoda -o ./earlGreyOutp
 
 ```
 
-The runtime of Earl Grey will depend on the repeat content of your input genome. Once finished, you will notice that a number of directories have been created by Earl Grey. The most important results are found within the "summaryFiles" folder, however intermediate results are kept in case you wish to use alignments for further manual curation or investigation, for example. 
+The runtime of Earl Grey will depend on the repeat content of your input genome. Once finished, you will notice that a number of directories have been created by Earl Grey. The most important results are found within the "summaryFiles" folder, however intermediate results are kept in case you wish to use alignments for further manual curation or investigation, for example.
 
 Directories created by earl grey:
 
@@ -139,7 +139,7 @@ Rubino F, Creevey CJ. MGkit: Metagenomic framework for the study of microbial co
 
 # Installation
 
-Before using Earl Grey, please ensure RepeatMasker (version 4.1.2) and RepeatModeler (version 2.0.2) are installed and configured. If these are not, please follow the instructions below to install these before continuing with Earl Grey Installation. 
+Before using Earl Grey, please ensure RepeatMasker (version 4.1.2) and RepeatModeler (version 2.0.2) are installed and configured. If these are not, please follow the instructions below to install these before continuing with Earl Grey Installation.
 NOTE: These instructions are provided to install RepeatMasker, RepeatModeler and related programs with sudo priveleges. If you are working on a shared cluster, please request installation of RepeatMasker and RepeatModeler by your sysadmin before working with Earl Grey. Earl Grey will function with RepeatMasker and RepeatModeler installed in the local path environment, or when the modules are loaded on a HPC cluster.
 
 
@@ -149,7 +149,7 @@ NOTE: These instructions are provided to install RepeatMasker, RepeatModeler and
 
 If you do not currently have RepeatMasker and RepeatModeler installed, the instructions are provided further down this page. If you do have them installed, **ensure the executables are in your PATH environment, including the RepeatMasker/util/ directory!**
 
-All of the scripts and associated modules are contained within this github repository. Earl Grey runs inside an anaconda environment to ensure all required packages are present and are the correct version. Therefore to run Earl Grey, you will require anaconda to be installed on your system. 
+All of the scripts and associated modules are contained within this github repository. Earl Grey runs inside an anaconda environment to ensure all required packages are present and are the correct version. Therefore to run Earl Grey, you will require anaconda to be installed on your system.
 
 **If anaconda is NOT installed on your system, please install it following these instructions:**
 
@@ -206,7 +206,7 @@ Thank you for trying Earl Grey!
 
 These instructions will guide you through configuring all required programs and scripts to run Earl Grey.
 
-All of the scripts and associated modules are contained within this github repository. Earl Grey runs inside an anaconda environment to ensure all required packages are present and are the correct version. Therefore to run Earl Grey, you will require anaconda to be installed on your system. 
+All of the scripts and associated modules are contained within this github repository. Earl Grey runs inside an anaconda environment to ensure all required packages are present and are the correct version. Therefore to run Earl Grey, you will require anaconda to be installed on your system.
 
 **If anaconda is NOT installed on your system, please install it following these instructions:**
 
@@ -234,7 +234,7 @@ source ~/.bashrc
 
 RepeatMasker can be downloaded from: http://www.repeatmasker.org/RepeatMasker/. Installation instructions can be found on the website. Alternatively, please use the code below:
 
-You will need to download and install a couple of programs for RepeatMasker to work. 
+You will need to download and install a couple of programs for RepeatMasker to work.
 
 Download rmblast
 
@@ -253,7 +253,7 @@ Download RepeatMasker (this will download it to the current directory)
 
 ```wget http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.2-p1.tar.gz```
 
-Copy the RepeatMasker package to /usr/local/, or somewhere that all users will be able to access the installation. 
+Copy the RepeatMasker package to /usr/local/, or somewhere that all users will be able to access the installation.
 Copying to /usr/local/ might require sudo priveleges
 
 ```sudo cp RepeatMasker-4.1.2-p1.tar.gz /usr/local/```
@@ -264,8 +264,8 @@ Change directory to /usr/local, and extract the RepeatMasker package. This might
 
 ```sudo tar -zxvf RepeatMasker-4.1.2-p1.tar.gz```
 
-Install the required RepeatMasker libraries - Earl Grey has been tested with Dfam 3.3 and RepBase. 
-Unfortunately, RepBase is now behind a paywall, but to ensure Earl Grey remains open it does not rely on RepBase, although inclusion of RepBase can improve classification of repeats by RepeatModeler. If you have access to this database, please include it in your configuration of RepeatMasker. 
+Install the required RepeatMasker libraries - Earl Grey has been tested with Dfam 3.3 and RepBase.
+Unfortunately, RepBase is now behind a paywall, but to ensure Earl Grey remains open it does not rely on RepBase, although inclusion of RepBase can improve classification of repeats by RepeatModeler. If you have access to this database, please include it in your configuration of RepeatMasker.
 We recommend that you download Dfam 3.3 as a minimum before using Earl Grey. The Dfam library is large - this could take a while!
 
 We recommend downloading Dfam into your home directory (~/) or a subdirectory of home
@@ -297,7 +297,7 @@ Add RepeatMasker and util directory to your path environment
 
 RepeatModeler can be downloaded from: http://www.repeatmasker.org/RepeatModeler/. Installation instructions can be found on the website. Alternatively, please use the code below:
 
-You will need to download and install a couple of programs for RepeatModeler to work. 
+You will need to download and install a couple of programs for RepeatModeler to work.
 
 Download RECON and RepeatScout
 
@@ -370,7 +370,7 @@ Download RepeatModeler
 
 ```wget http://www.repeatmasker.org/RepeatModeler/RepeatModeler-2.0.2a.tar.gz```
 
-Copy the RepeatModeler package to /usr/local/, or somewhere that all users will be able to access the installation. 
+Copy the RepeatModeler package to /usr/local/, or somewhere that all users will be able to access the installation.
 Copying to /usr/local/ might require sudo priveleges
 
 ```sudo cp RepeatModeler-2.0.2a.tar.gz /usr/local/```
@@ -425,13 +425,13 @@ Now to finally configure RepeatMasker! - Run these lines and then follow the on-
 
 ```
 cd /usr/local/RepeatMasker
-# check which perl interpreter you should use 
+# check which perl interpreter you should use
 which perl
 # replace [perl] in the below command with the path printed from the command above and use this as your perl interpreter (this should be the anaconda perl interpreter)
 sudo [perl] ./configure
 ```
 
-Time to configure RepeatModeler! You need to enter the paths to lots of the directories of programs we have installed, please note them down before running the configuration script!! 
+Time to configure RepeatModeler! You need to enter the paths to lots of the directories of programs we have installed, please note them down before running the configuration script!!
 
 
 ```
@@ -456,7 +456,7 @@ earlGrey -g genome.fasta -s speciesName -o outputDirectory -r repeatMaskerTerm -
 
 These instructions will guide you through configuring all required programs and scripts to run Earl Grey.
 
-All of the scripts and associated modules are contained within this github repository. Earl Grey runs inside an anaconda environment to ensure all required packages are present and are the correct version. Therefore to run Earl Grey, you will require anaconda to be installed on your system. 
+All of the scripts and associated modules are contained within this github repository. Earl Grey runs inside an anaconda environment to ensure all required packages are present and are the correct version. Therefore to run Earl Grey, you will require anaconda to be installed on your system.
 
 **If anaconda is NOT installed on your system, please install it following these instructions:**
 
@@ -484,7 +484,7 @@ source ~/.bashrc
 
 RepeatMasker can be downloaded from: http://www.repeatmasker.org/RepeatMasker/. Installation instructions can be found on the website. Alternatively, please use the code below:
 
-You will need to download and install a couple of programs for RepeatMasker to work. 
+You will need to download and install a couple of programs for RepeatMasker to work.
 
 Download rmblast
 
@@ -509,8 +509,8 @@ Extract the RepeatMasker package.
 tar -zxvf RepeatMasker-4.1.2-p1.tar.gz
 ```
 
-Install the required RepeatMasker libraries - Earl Grey has been tested with Dfam 3.3 and RepBase. 
-Unfortunately, RepBase is now behind a paywall, but to ensure Earl Grey remains open it does not rely on RepBase, although inclusion of RepBase can improve classification of repeats by RepeatModeler. If you have access to this database, please include it in your configuration of RepeatMasker. 
+Install the required RepeatMasker libraries - Earl Grey has been tested with Dfam 3.3 and RepBase.
+Unfortunately, RepBase is now behind a paywall, but to ensure Earl Grey remains open it does not rely on RepBase, although inclusion of RepBase can improve classification of repeats by RepeatModeler. If you have access to this database, please include it in your configuration of RepeatMasker.
 We recommend that you download Dfam 3.3 as a minimum before using Earl Grey. The Dfam library is large - this could take a while!
 
 
@@ -538,7 +538,7 @@ Add RepeatMasker and util directory to your path environment (Replace /path/to/ 
 
 RepeatModeler can be downloaded from: http://www.repeatmasker.org/RepeatModeler/. Installation instructions can be found on the website. Alternatively, please use the code below:
 
-You will need to download and install a couple of programs for RepeatModeler to work. 
+You will need to download and install a couple of programs for RepeatModeler to work.
 
 Download RECON and RepeatScout (Make sure you are no longer inside your RepeatMasker directory!)
 
@@ -656,7 +656,7 @@ cd /path/to/RepeatMasker
 perl ./configure
 ```
 
-Time to configure RepeatModeler! You need to enter the paths to lots of the directories of programs we have installed, please note them down before running the configuration script!! 
+Time to configure RepeatModeler! You need to enter the paths to lots of the directories of programs we have installed, please note them down before running the configuration script!!
 
 
 ```
@@ -713,8 +713,10 @@ nano Dockerfile
 
 Following this, build the docker container (this will take a while!)
 
+To rebuild after cloning the repo fork [link](https://stackoverflow.com/questions/35154219/rebuild-docker-image-from-specific-step)
+
 ```
-docker build . -t earlgrey
+docker build . -t earlgrey --build-arg BREAKER=$(date +%Y%m%d-%H%M%S) 
 ```
 
 To run the docker container interactively so you can analyse your genome assembly:
