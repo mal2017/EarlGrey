@@ -163,7 +163,7 @@ ENV LANG=C
 ENV PYTHONIOENCODING=utf8
 
 RUN cd /opt/ \
-        && git clone https://github.com/TobyBaril/EarlGrey \
+        && git clone https://github.com/mal2017/EarlGrey \
         && cd EarlGrey \
         && chmod +x ./configure \
         && eval "$(/anaconda3/bin/conda shell.bash  hook)" \
