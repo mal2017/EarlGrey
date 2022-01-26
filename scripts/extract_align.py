@@ -51,7 +51,7 @@ def CREATE_TE_OUTFILES(LIBRARY):
 		record.id = 'CONSENSUS-' + NEWID
 		record.description = ''
 		SeqIO.write(record, 'tmpTEfiles/' + NEWID + '.fa', 'fasta')
-				
+
 ## Organize blast hits function. Will read in blast file, sort based on e-value and bitscore, deterine top BUFFER hits for extraction, extract, and combine with TE file from previous function.
 def EXTRACT_BLAST_HITS(GENOME, BLAST, LBUFFER, RBUFFER, HITNUM):
 ##Read in blast data
@@ -83,24 +83,26 @@ def EXTRACT_BLAST_HITS(GENOME, BLAST, LBUFFER, RBUFFER, HITNUM):
 		os.remove('tmpbedfiles/' + QUERY + '.bed')
 		subprocess.run('cat {} {} >{}'.format('tmpextracts/' + QUERY + '.fa', 'tmpTEfiles/' + QUERY +'.fa', 'catTEfiles/' + QUERY +'.fa'), shell=True)
 #		COUNTER = COUNTER + 1
-		
+
 ##Alignment function
 def MUSCLE(TOALIGN):
 	TOALIGNPREFIX = os.path.splitext(TOALIGN)[0]
-	SOFTWARE = '/usr/bin'
-	subprocess.check_call(SOFTWARE + '/muscle -in {} -out {}'.format('catTEfiles/' + TOALIGN, 'muscle/' + TOALIGNPREFIX + '.fa'), shell=True)
+	#SOFTWARE = '/usr/bin/' # CHANGED BY ML
+	subprocess.check_call(SOFTWARE + 'muscle -in {} -out {}'.format('catTEfiles/' + TOALIGN, 'muscle/' + TOALIGNPREFIX + '.fa'), shell=True)
 
 ##Consensus generation function
 def CONSENSUSGEN(ALIGNED):
-	FILEPREFIX = os.path.splitext(ALIGNED)[0] 
-	SOFTWARE = '/home/toby/Programs/'
+	FILEPREFIX = os.path.splitext(ALIGNED)[0]
+	#SOFTWARE = '/home/toby/Programs/'
 	if TRIMAL == 'y':
-		subprocess.run(SOFTWARE + 'trimal/source/trimal -in {} -gt 0.6 -cons 60 -fasta -out {}'.format('muscle/' + ALIGNED, 'muscle/' + FILEPREFIX + '_trimal.fa'), shell=True)
-		subprocess.run(SOFTWARE + 'EMBOSS-6.6.0/emboss/cons -sequence muscle/' + FILEPREFIX + '_trimal.fa -outseq muscle/' + FILEPREFIX + '_cons.fa -name ' + FILEPREFIX + '_cons -plurality 3 -identity 3', shell=True)
+		#subprocess.run(SOFTWARE + 'trimal/source/trimal -in {} -gt 0.6 -cons 60 -fasta -out {}'.format('muscle/' + ALIGNED, 'muscle/' + FILEPREFIX + '_trimal.fa'), shell=True)
+		#subprocess.run(SOFTWARE + 'EMBOSS-6.6.0/emboss/cons -sequence muscle/' + FILEPREFIX + '_trimal.fa -outseq muscle/' + FILEPREFIX + '_cons.fa -name ' + FILEPREFIX + '_cons -plurality 3 -identity 3', shell=True)
+		subprocess.run('trimal -in {} -gt 0.6 -cons 60 -fasta -out {}'.format('muscle/' + ALIGNED, 'muscle/' + FILEPREFIX + '_trimal.fa'), shell=True)
+		subprocess.run('cons -sequence muscle/' + FILEPREFIX + '_trimal.fa -outseq muscle/' + FILEPREFIX + '_cons.fa -name ' + FILEPREFIX + '_cons -plurality 3 -identity 3', shell=True)
 		subprocess.run('cat {} {} >{}'.format('muscle/' + FILEPREFIX + '_trimal.fa', 'muscle/' + FILEPREFIX + '_cons.fa', 'consensusfiles/' + FILEPREFIX + '_cons.fa'), shell=True)
 	if TRIMAL == 'n':
-#		subprocess.run(SOFTWARE + 'trimal/source/trimal -in {} -gt 0.6 -cons 60 -fasta -out {}'.format('muscle/' + ALIGNED, 'muscle/' + FILEPREFIX + '_trimal.fa'), shell=True)
-		subprocess.run(SOFTWARE + 'EMBOSS-6.6.0/emboss/cons -sequence muscle/' + ALIGNED + ' -outseq muscle/' + FILEPREFIX + '_cons.fa -name ' + FILEPREFIX + '_cons -plurality 3 -identity 3', shell=True)
+		#subprocess.run(SOFTWARE + 'EMBOSS-6.6.0/emboss/cons -sequence muscle/' + ALIGNED + ' -outseq muscle/' + FILEPREFIX + '_cons.fa -name ' + FILEPREFIX + '_cons -plurality 3 -identity 3', shell=True)
+		subprocess.run('cons -sequence muscle/' + ALIGNED + ' -outseq muscle/' + FILEPREFIX + '_cons.fa -name ' + FILEPREFIX + '_cons -plurality 3 -identity 3', shell=True)
 		subprocess.run('cat {} {} >{}'.format('muscle/' + ALIGNED, 'muscle/' + FILEPREFIX + '_cons.fa', 'consensusfiles/' + FILEPREFIX + '_cons.fa'), shell=True)
 
 def DIRS(DIR):
@@ -109,7 +111,7 @@ def DIRS(DIR):
 	os.mkdir(DIR)
 
 ####MAIN function
-def main():	
+def main():
 ##Get input arguments
 	GENOMEFA, BLAST, LIB, LBUFFER, RBUFFER, HITNUM, ALIGN, TRIMAL, EMBOSS, LOG = get_args()
 
@@ -133,15 +135,15 @@ def main():
 	LOGGER.info('Emboss consensus = ' + EMBOSS)
 	LOGGER.info('Log level: ' + LOG)
 
-## Index the genome 
+## Index the genome
 	LOGGER.info('Indexing the genome')
 	GENOMEIDX = Fasta(GENOMEFA)
 	GENOMEPREFIX = os.path.splitext(GENOMEFA)[0]
 	FAIDX = pd.read_table(GENOMEFA + '.fai', sep='\t', names=['one', 'two', 'three', 'four', 'five'])
 	FAIDX = FAIDX[['one', 'two']]
 	FAIDX.to_csv(GENOMEPREFIX + '.fai', sep='\t', header=False, index=False)
-		
-## Set up directories	
+
+## Set up directories
 	LOGGER.info('Creating tmp and permanent directories')
 	DIRS('tmpTEfiles')
 	DIRS('tmpbedfiles')
@@ -151,7 +153,7 @@ def main():
 		DIRS('consensusfiles')
 	DIRS('tmpextracts')
 	DIRS('catTEfiles')
-	
+
 ##Determine optional arguments and print to screen.
 	if ALIGN == 'n' and EMBOSS == 'y':
 		LOGGER.info('Input is contradictory. Generating a new consensus with emboss requires muscle alignment.')
@@ -166,10 +168,10 @@ def main():
 
 ##Create TE out files to populate with blast hits
 	CREATE_TE_OUTFILES(LIB)
-	
+
 ##Extract hits and combine them with the TE out files if flagged
 	EXTRACT_BLAST_HITS(GENOMEFA, BLAST, LBUFFER, RBUFFER, HITNUM)
-	
+
 ##Align extracted hits if flagged
 	if ALIGN == 'y':
 		COUNTER = 1
@@ -182,7 +184,7 @@ def main():
 	if EMBOSS == 'y':
 		for FILE in os.listdir('muscle'):
 			CONSENSUSGEN(FILE)
-			
+
 ##Remove empty tmp directories and unneeded files
 	LOGGER.info('Removing tmp directories and extraneous files')
 	shutil.rmtree('tmpbedfiles/')
@@ -194,7 +196,7 @@ def main():
 	FILES = [F for F in os.listdir('muscle/') if F.endswith('_trimal.fa')]
 	for FILE in FILES:
 		os.remove('muscle/' + FILE)
-	
+
 	end_time = time.time()
 	LOGGER.info('Run time: ' + str(datetime.timedelta(seconds=end_time-start_time)))
 #
@@ -202,4 +204,3 @@ def main():
 # when imported ( e.g. when help is called on file )
 #
 if __name__ =="__main__":main()
-		

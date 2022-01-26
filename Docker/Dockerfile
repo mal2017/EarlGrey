@@ -102,9 +102,9 @@ RUN cd /opt \
     && cd RepeatMasker/Libraries \
     && cp /opt/src/Dfam.h5.gz . \
     && gunzip -f Dfam.h5.gz \
-    && cd /opt/RepeatMasker \
-    && cp /opt/src/RepBaseRepeatMaskerEdition-20181026.tar.gz . \
-    && tar -zxf RepBaseRepeatMaskerEdition-20181026.tar.gz \
+    #&& cd /opt/RepeatMasker \
+    #&& cp /opt/src/RepBaseRepeatMaskerEdition-20181026.tar.gz . \
+    #&& tar -zxf RepBaseRepeatMaskerEdition-20181026.tar.gz \
     && cd /opt/RepeatMasker \
     && perl configure \
         -hmmer_dir=/opt/hmmer/bin \
@@ -131,8 +131,8 @@ RUN cd /opt \
 FROM debian:9
 
 # Install dependencies and some basic utilities
-RUN apt-get -y update \
-    && apt-get -y install \
+RUN apt-get -y --allow-unauthenticated update \
+    && apt-get -y --allow-unauthenticated install \
         aptitude \
         libgomp1 \
         perl \
@@ -140,14 +140,15 @@ RUN apt-get -y update \
         libfile-which-perl \
         libtext-soundex-perl \
         libjson-perl liburi-perl libwww-perl \
-        libdevel-size-perl \
-    && aptitude install -y ~pstandard ~prequired \
+        libdevel-size-perl
+
+RUN yes | aptitude install -y ~pstandard ~prequired \
         curl wget \
         vim nano \
         procps strace \
         libpam-systemd-
 
-RUN apt-get -y install git
+RUN apt-get -y --allow-unauthenticated install git
 RUN cd /opt/ \
         && curl https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh --output anaconda.sh \
         && bash ./anaconda.sh -b -p /anaconda3 \
@@ -170,7 +171,11 @@ RUN cd /opt/ \
 
 ENV PATH=$PATH:/opt/EarlGrey/
 
-#RUN echo "#!/bin/bash" > /work/start.sh \
-#        && echo 'eval "$(/anaconda3/bin/conda shell.bash  hook)"' >> /work/start.sh \
-#        && echo "conda activate earlGrey" >> /work/start.sh \
-#        && chmod +x /work/start.sh
+RUN bash -c  'eval "$(/anaconda3/bin/conda shell.bash  hook)" && conda activate earlGrey && conda install -y -c defaults -c bioconda -c conda-forge cd-hit muscle bc'
+
+RUN echo "#!/bin/bash" > /usr/local/bin/start.sh \
+        && echo 'eval "$(/anaconda3/bin/conda shell.bash  hook)"' >>/usr/local/bin/start.sh \
+        && echo "conda activate earlGrey" >> /usr/local/bin/start.sh \
+        && chmod +x /usr/local/bin/start.sh
+
+#CMD ["/bin/bash", "/usr/local/bin/start.sh"]
