@@ -173,6 +173,8 @@ ENV PATH=$PATH:/opt/EarlGrey/
 
 RUN bash -c  'eval "$(/anaconda3/bin/conda shell.bash  hook)" && conda activate earlGrey && conda install -y -c defaults -c bioconda -c conda-forge cd-hit muscle bc'
 
+RUN bash -c  'eval "$(/anaconda3/bin/conda shell.bash  hook)" && conda create -n mgkit -y -c defaults -c bioconda -c conda-forge mgkit'
+
 RUN echo "#!/bin/bash" > /usr/local/bin/start.sh \
         && echo 'eval "$(/anaconda3/bin/conda shell.bash  hook)"' >>/usr/local/bin/start.sh \
         && echo "conda activate earlGrey" >> /usr/local/bin/start.sh \

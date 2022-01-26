@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 usage()
 {
@@ -17,7 +17,7 @@ while getopts f:s:d:u:q:t:b:h option
         q) table=${OPTARG};;
         t) threads=${OPTARG};;
         b) dict=${OPTARG};;
-        h) usage; exit;; 
+        h) usage; exit;;
         esac
             done
 
@@ -27,7 +27,7 @@ ltrfinder()
 {
     mkdir ${dir}/${spe}LtrFinder/
     cd ${dir}/${spe}LtrFinder/
-    ${SCRIPT_DIR}/LTR_FINDER_parallel -seq $genome -threads $threads 
+    ${SCRIPT_DIR}/LTR_FINDER_parallel -seq $genome -threads $threads
     cd ${dir}
 }
 
@@ -55,9 +55,9 @@ repeatcraft()
 mergeRepeats()
 {
     sort -s -k1,1 -k7,7 ${dir}/${spe}.rmerge.gff > ${dir}/${spe}.rmerge.gff.sorted
-    filter-gff overlap -v --progress -t -c length -a length ${dir}/${spe}.rmerge.gff.sorted ${dir}/${spe}.rmerge.gff.filtered
+    /anaconda3/envs/mgkit/bin/filter-gff overlap -v --progress -t -c length -a length ${dir}/${spe}.rmerge.gff.sorted ${dir}/${spe}.rmerge.gff.filtered
     Rscript ${SCRIPT_DIR}/mergeRepeats.R  ${dir}/${spe}.rmerge.gff.filtered ${dir}/${spe}.mergedRepeats.bed $genSize ${dir}/${spe}.mergedRepeats.revisedTable ${dir}/${spe}.filteredRepeats.bed ${dir}/${spe}.filteredRepeats.summary
-}            
+}
 
 
 ##### Subprocess scafDeedPoll
@@ -80,7 +80,7 @@ runningCow()
         \   ^__^
          \  (oo)\_______
             (__)\       )\/\
-                
+
                 ||----w |
                 ||     ||"
 }
@@ -99,10 +99,10 @@ genomesize()
 SCRIPT_DIR=INSERTFILEPATHHERE
 stage="Running LTR Finder"
 runningCow
-ltrfinder 
+ltrfinder
 
 # Step 2 - Generate all respective GFF2 files
- 
+
 stage="Generating GFF Files"
 runningCow
 convert
@@ -125,4 +125,3 @@ scafDeedPoll
 
 stage="Done!"
 runningCow
-
